@@ -113,12 +113,8 @@ runJest.until = async function(
     );
   }
 
-  const env = options.nodePath
-    ? Object.assign({}, process.env, {
-        FORCE_COLOR: 0,
-        NODE_PATH: options.nodePath,
-      })
-    : process.env;
+  const env = Object.assign({}, process.env, {FORCE_COLOR: 0});
+  if (options.nodePath) env['NODE_PATH'] = options.nodePath;
 
   const jestPromise = execa(JEST_PATH, args || [], {
     cwd: dir,
